@@ -1,36 +1,62 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# NobetHizli
 
-## Getting Started
+Mobil odakli, hizli ve SEO uyumlu nobetci eczane bulma web uygulamasi.
 
-First, run the development server:
+## Ozellikler
+
+- Konumdan otomatik il/ilce cozumleme (`/api/pharmacies/nearby`)
+- Il + ilce secimi ile manuel hizli arama (`/api/pharmacies`)
+- Harita gorunumu (kullanici konumu + eczane pinleri)
+- Yol uzeri eczane arama (`/api/pharmacies/along-route`)
+- Mesafeye gore siralama (koordinat bazli)
+- Tek dokunusla telefon arama ve Google Maps yol tarifi
+- Sehir ve ilce bazli indekslenebilir sayfalar
+- Ana akistan bagimsiz rehber/blog bolumu (`/rehber`)
+- `robots.txt`, `sitemap.xml`, `manifest.webmanifest`, JSON-LD schema
+- Onbellekli veri cekme katmani (kaynak: `eczaneler.gen.tr`)
+
+## Teknoloji
+
+- Next.js 16 (App Router, TypeScript)
+- Tailwind CSS 4
+- Cheerio (HTML parse)
+
+## Gelistirme
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Uygulama: `http://localhost:3000`
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Build
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run lint
+npm run build
+npm run start
+```
 
-## Learn More
+## Ortam Degiskenleri
 
-To learn more about Next.js, take a look at the following resources:
+- `NEXT_PUBLIC_SITE_URL`
+  - Ornek: `https://ornek-domain.com`
+  - Canonical, sitemap ve metadata icin kullanilir.
+- `SCRAPER_USER_AGENT` (opsiyonel)
+  - Dis kaynak isteklerinde User-Agent ustbilgisi.
+- `GOOGLE_SITE_VERIFICATION` (opsiyonel)
+  - Search Console dogrulama meta etiketi icin kullanilir.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Proje Yapisi
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- `src/app/page.tsx`: Ana sayfa + hizli bulucu
+- `src/app/nobetci/[city]/[district]/page.tsx`: Ilce bazli nobetci liste sayfasi
+- `src/app/api/pharmacies/nearby/route.ts`: Konuma gore en yakin akisi
+- `src/lib/eczane-source.ts`: Kaynak sayfa parse katmani
+- `src/lib/pharmacy-service.ts`: Geocode, eslestirme, zenginlestirme ve siralama
 
-## Deploy on Vercel
+## Notlar
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Veriler dis kaynaktan alindigi icin anlik sapmalar olabilir.
+- Uretimde deploy icin Vercel veya Node.js uyumlu herhangi bir platform kullanilabilir.
