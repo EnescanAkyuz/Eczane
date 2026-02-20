@@ -12,26 +12,34 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
   return (
-    <main className="space-y-4 rounded-[2rem] border border-zinc-200 bg-white/85 p-5 shadow-sm md:p-6">
-      <h1 className="font-display text-3xl font-semibold text-zinc-900">Hakkimizda</h1>
-      <p className="text-sm leading-7 text-zinc-700">
-        NobetHizli, kullanicinin en yakin nobetci eczaneyi minimum adimla bulmasi
-        icin gelistirilen mobil odakli bir web uygulamasidir. Amacimiz, karmasik
-        ekranlar yerine hizli erisim, net aksiyonlar ve guvenilir yonlendirme
-        sunmaktir.
-      </p>
-      <p className="text-sm leading-7 text-zinc-700">
-        Uygulama; sehir, ilce, telefon ve konum bilgilerini kaynak sistemden cekip
-        normalize eder, mesafe hesaplamasi ile siralar ve yol tarifi baglantisini
-        dogrudan kullaniciya sunar.
-      </p>
-      <p className="text-sm leading-7 text-zinc-700">
-        Veri akis detayi icin{" "}
-        <Link className="font-semibold text-emerald-700 hover:text-emerald-600" href="/veri-kaynagi">
-          Veri Kaynagi
-        </Link>{" "}
-        sayfasini inceleyebilirsiniz.
-      </p>
+    <main className="space-y-4">
+      <section className="rounded-2xl border border-zinc-200/80 bg-white/85 p-5 shadow-sm backdrop-blur sm:rounded-3xl sm:p-6">
+        <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-100 text-emerald-600">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <circle cx="12" cy="12" r="10" />
+            <path d="M12 16v-4M12 8h.01" />
+          </svg>
+        </div>
+        <h1 className="font-display text-2xl font-bold text-zinc-900 sm:text-3xl">Hakkimizda</h1>
+        <p className="mt-3 text-sm leading-7 text-zinc-600">
+          NobetHizli, kullanicinin en yakin nobetci eczaneyi minimum adimla bulmasi
+          icin gelistirilen mobil odakli bir web uygulamasidir. Amacimiz, karmasik
+          ekranlar yerine hizli erisim, net aksiyonlar ve guvenilir yonlendirme
+          sunmaktir.
+        </p>
+        <p className="mt-3 text-sm leading-7 text-zinc-600">
+          Uygulama; sehir, ilce, telefon ve konum bilgilerini kaynak sistemden cekip
+          normalize eder, mesafe hesaplamasi ile siralar ve yol tarifi baglantisini
+          dogrudan kullaniciya sunar.
+        </p>
+        <p className="mt-3 text-sm leading-7 text-zinc-600">
+          Veri akis detayi icin{" "}
+          <Link className="font-semibold text-emerald-700 transition hover:text-emerald-600" href="/veri-kaynagi">
+            Veri Kaynagi
+          </Link>{" "}
+          sayfasini inceleyebilirsiniz.
+        </p>
+      </section>
     </main>
   );
 }

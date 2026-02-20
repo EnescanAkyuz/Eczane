@@ -163,63 +163,76 @@ export default async function DistrictPage({ params }: DistrictPageProps) {
       <nav aria-label="Breadcrumb" className="text-xs text-zinc-500">
         <ol className="flex flex-wrap items-center gap-2">
           <li>
-            <Link className="hover:text-emerald-700" href="/">
+            <Link className="transition hover:text-emerald-700" href="/">
               Ana Sayfa
             </Link>
           </li>
-          <li>/</li>
+          <li className="text-zinc-300">/</li>
           <li>
-            <Link className="hover:text-emerald-700" href="/nobetci">
+            <Link className="transition hover:text-emerald-700" href="/nobetci">
               Sehirler
             </Link>
           </li>
-          <li>/</li>
+          <li className="text-zinc-300">/</li>
           <li>
-            <Link className="hover:text-emerald-700" href={`/nobetci/${result.context.city.slug}`}>
+            <Link className="transition hover:text-emerald-700" href={`/nobetci/${result.context.city.slug}`}>
               {cityName}
             </Link>
           </li>
-          <li>/</li>
-          <li className="text-zinc-700">{districtName}</li>
+          <li className="text-zinc-300">/</li>
+          <li className="font-medium text-zinc-700">{districtName}</li>
         </ol>
       </nav>
 
-      <section className="rounded-[2rem] border border-zinc-200 bg-white/85 p-5 shadow-sm md:p-6">
-        <p className="text-sm text-zinc-500">
+      <section className="rounded-2xl border border-zinc-200/80 bg-white/85 p-5 shadow-sm backdrop-blur sm:rounded-3xl sm:p-6">
+        <span className="text-xs font-semibold uppercase tracking-wider text-emerald-600">
           {cityName} / {districtName}
-        </p>
-        <h1 className="font-display text-3xl font-semibold text-zinc-900">
+        </span>
+        <h1 className="mt-1 font-display text-2xl font-bold text-zinc-900 sm:text-3xl">
           {pageTitle}
         </h1>
-        <p className="mt-2 text-sm text-zinc-700">{result.shiftLabel}</p>
-        <p className="mt-1 text-xs text-zinc-500">
-          Son guncelleme: {formatFetchedAt(result.fetchedAt)}
-        </p>
+        <div className="mt-2 flex flex-wrap items-center gap-3">
+          <span className="inline-flex items-center gap-1.5 text-sm text-zinc-600">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-emerald-600">
+              <circle cx="12" cy="12" r="10" /><polyline points="12 6 12 12 16 14" />
+            </svg>
+            {result.shiftLabel}
+          </span>
+          <span className="inline-flex items-center gap-1.5 text-xs text-zinc-400">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" /><path d="M12 6v6h4.5" />
+            </svg>
+            Son guncelleme: {formatFetchedAt(result.fetchedAt)}
+          </span>
+        </div>
       </section>
 
       <PharmacyMap pharmacies={result.pharmacies} />
 
-      <section className="grid gap-3 md:grid-cols-2">
+      <section className="grid gap-3 sm:grid-cols-2">
         {result.pharmacies.map((pharmacy, index) => (
           <PharmacyCard key={pharmacy.id} highlight={index === 0} pharmacy={pharmacy} />
         ))}
       </section>
 
-      <section className="rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm leading-6 text-amber-900">
-        Bilgilendirme: Bu sayfa yalnizca yonlendirme amacli nobetci eczane bilgisi
-        sunar. Acil tibbi durumlarda 112 Acil aranmalidir.
-      </section>
+      <div className="flex items-start gap-2.5 rounded-xl border border-amber-200/80 bg-amber-50 px-4 py-3 text-sm leading-relaxed text-amber-800">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mt-0.5 shrink-0">
+          <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z" />
+          <path d="M12 9v4M12 17h.01" />
+        </svg>
+        Bu sayfa yalnizca yonlendirme amacli nobetci eczane bilgisi sunar. Acil tibbi durumlarda 112 Acil aranmalidir.
+      </div>
 
       {relatedDistricts.length > 0 ? (
-        <section className="rounded-2xl border border-zinc-200 bg-white/85 p-4">
-          <h2 className="font-display text-xl font-semibold text-zinc-900">
+        <section className="rounded-2xl border border-zinc-200/80 bg-white/80 p-5 backdrop-blur sm:rounded-3xl">
+          <h2 className="font-display text-lg font-bold text-zinc-900 sm:text-xl">
             {cityName} icindeki diger ilceler
           </h2>
           <div className="mt-3 flex flex-wrap gap-2">
             {relatedDistricts.map((districtItem) => (
               <Link
                 key={`related-${districtItem.slug}`}
-                className="rounded-lg border border-zinc-200 bg-zinc-50 px-2 py-1 text-xs font-semibold text-zinc-700 transition hover:border-emerald-300 hover:text-emerald-700"
+                className="card-press rounded-lg border border-zinc-200 bg-zinc-50 px-2.5 py-1.5 text-xs font-semibold text-zinc-600 transition hover:border-emerald-300 hover:text-emerald-700"
                 href={`/nobetci/${result.context.city.slug}/${districtItem.slug}`}
               >
                 {districtItem.name} nobetci eczane
@@ -229,17 +242,17 @@ export default async function DistrictPage({ params }: DistrictPageProps) {
         </section>
       ) : null}
 
-      <section className="rounded-2xl border border-zinc-200 bg-white/85 p-4 text-sm text-zinc-600">
+      <p className="rounded-xl border border-zinc-200/80 bg-white/80 px-4 py-3 text-sm text-zinc-500 backdrop-blur">
         Kaynak:{" "}
         <a
-          className="font-semibold text-emerald-700 hover:text-emerald-600"
+          className="font-semibold text-emerald-700 transition hover:text-emerald-600"
           href={result.sourcePath}
           rel="noreferrer noopener"
           target="_blank"
         >
           eczaneler.gen.tr
         </a>
-      </section>
+      </p>
 
       <script
         dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }}

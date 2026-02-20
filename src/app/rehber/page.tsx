@@ -20,41 +20,45 @@ export default function GuidePage() {
   ]);
 
   return (
-    <main className="space-y-4 rounded-[2rem] border border-zinc-200 bg-white/85 p-5 shadow-sm md:p-6">
-      <nav aria-label="Breadcrumb" className="text-xs text-zinc-500">
-        <ol className="flex items-center gap-2">
-          <li>
-            <Link className="hover:text-emerald-700" href="/">
-              Ana Sayfa
-            </Link>
-          </li>
-          <li>/</li>
-          <li className="text-zinc-700">Rehber</li>
-        </ol>
-      </nav>
+    <main className="space-y-4">
+      <section className="rounded-2xl border border-zinc-200/80 bg-white/85 p-5 shadow-sm backdrop-blur sm:rounded-3xl sm:p-6">
+        <nav aria-label="Breadcrumb" className="mb-4 text-xs text-zinc-500">
+          <ol className="flex items-center gap-2">
+            <li>
+              <Link className="transition hover:text-emerald-700" href="/">
+                Ana Sayfa
+              </Link>
+            </li>
+            <li className="text-zinc-300">/</li>
+            <li className="font-medium text-zinc-700">Rehber</li>
+          </ol>
+        </nav>
 
-      <h1 className="font-display text-3xl font-semibold text-zinc-900">Rehber</h1>
-      <p className="text-sm text-zinc-700">
-        Ana hizli arama deneyimini bozmadan, nobetci eczane kullanimina dair ek
-        bilgi ve strateji icerikleri bu bolumde yayinlanir.
-      </p>
+        <h1 className="font-display text-2xl font-bold text-zinc-900 sm:text-3xl">Rehber</h1>
+        <p className="mt-2 text-sm text-zinc-600">
+          Nobetci eczane kullanimina dair ek bilgi ve strateji icerikleri bu bolumde yer alir.
+        </p>
+      </section>
 
-      <div className="grid gap-3 md:grid-cols-2">
+      <div className="grid gap-3 sm:grid-cols-2">
         {blogPosts.map((post) => (
           <article
-            className="rounded-2xl border border-zinc-200 bg-zinc-50 p-4"
+            className="card-press rounded-2xl border border-zinc-200/80 bg-white/80 p-5 backdrop-blur transition hover:border-emerald-200 hover:shadow-sm"
             key={post.slug}
           >
-            <p className="text-xs font-semibold uppercase tracking-wide text-emerald-700">
+            <p className="inline-flex rounded-full bg-emerald-100 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-emerald-700">
               {post.category}
             </p>
-            <h2 className="mt-2 font-display text-xl font-semibold text-zinc-900">
-              <Link className="hover:text-emerald-700" href={`/rehber/${post.slug}`}>
+            <h2 className="mt-3 font-display text-lg font-bold text-zinc-900 sm:text-xl">
+              <Link className="transition hover:text-emerald-700" href={`/rehber/${post.slug}`}>
                 {post.title}
               </Link>
             </h2>
-            <p className="mt-2 text-sm text-zinc-700">{post.description}</p>
-            <p className="mt-3 text-xs text-zinc-500">
+            <p className="mt-2 text-sm leading-relaxed text-zinc-600">{post.description}</p>
+            <p className="mt-3 flex items-center gap-1.5 text-xs text-zinc-400">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="12" cy="12" r="10" /><polyline points="12 6 12 12 16 14" />
+              </svg>
               {post.readMinutes} dk okuma
             </p>
           </article>

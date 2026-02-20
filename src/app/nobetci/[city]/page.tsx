@@ -97,60 +97,66 @@ export default async function CityPage({ params }: CityPageProps) {
   };
 
   return (
-    <main className="space-y-5 rounded-[2rem] border border-zinc-200 bg-white/85 p-5 shadow-sm md:p-6">
-      <nav aria-label="Breadcrumb" className="text-xs text-zinc-500">
-        <ol className="flex items-center gap-2">
-          <li>
-            <Link className="hover:text-emerald-700" href="/">
-              Ana Sayfa
-            </Link>
-          </li>
-          <li>/</li>
-          <li>
-            <Link className="hover:text-emerald-700" href="/nobetci">
-              Sehirler
-            </Link>
-          </li>
-          <li>/</li>
-          <li className="text-zinc-700">{selectedCity.name}</li>
-        </ol>
-      </nav>
+    <main className="space-y-4">
+      <section className="rounded-2xl border border-zinc-200/80 bg-white/85 p-5 shadow-sm backdrop-blur sm:rounded-3xl sm:p-6">
+        <nav aria-label="Breadcrumb" className="mb-4 text-xs text-zinc-500">
+          <ol className="flex items-center gap-2">
+            <li>
+              <Link className="transition hover:text-emerald-700" href="/">
+                Ana Sayfa
+              </Link>
+            </li>
+            <li className="text-zinc-300">/</li>
+            <li>
+              <Link className="transition hover:text-emerald-700" href="/nobetci">
+                Sehirler
+              </Link>
+            </li>
+            <li className="text-zinc-300">/</li>
+            <li className="font-medium text-zinc-700">{selectedCity.name}</li>
+          </ol>
+        </nav>
 
-      <header>
-        <p className="text-sm text-zinc-500">Sehir</p>
-        <h1 className="font-display text-3xl font-semibold text-zinc-900">
-          {selectedCity.name} Nobetci Eczane Ilceleri
-        </h1>
-        <p className="mt-2 text-sm text-zinc-700">
-          Ilcenizi secin, aktif nobetci eczane listesi hemen acilsin.
-        </p>
-      </header>
+        <header>
+          <span className="text-xs font-semibold uppercase tracking-wider text-emerald-600">Sehir</span>
+          <h1 className="mt-1 font-display text-2xl font-bold text-zinc-900 sm:text-3xl">
+            {selectedCity.name} Nobetci Eczane Ilceleri
+          </h1>
+          <p className="mt-2 text-sm text-zinc-600">
+            Ilcenizi secin, aktif nobetci eczane listesi hemen acilsin.
+          </p>
+        </header>
+      </section>
 
       <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-4">
         {districts.map((district) => (
           <Link
             key={district.slug}
-            className="rounded-xl border border-zinc-200 bg-zinc-50 px-3 py-2 text-sm font-semibold text-zinc-700 transition hover:border-emerald-300 hover:text-emerald-700"
+            className="card-press flex items-center gap-2 rounded-xl border border-zinc-200/80 bg-white/80 px-3 py-2.5 text-sm font-semibold text-zinc-700 backdrop-blur transition hover:border-emerald-300 hover:bg-emerald-50 hover:text-emerald-700"
             href={`/nobetci/${selectedCity.slug}/${district.slug}`}
           >
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="shrink-0 text-zinc-400">
+              <rect width="18" height="18" x="3" y="3" rx="2" ry="2" />
+              <path d="M3 9h18M9 21V9" />
+            </svg>
             {district.name}
           </Link>
         ))}
       </div>
 
-      <section className="rounded-2xl border border-zinc-200 bg-zinc-50 p-4 text-sm text-zinc-700">
-        <h2 className="font-display text-xl font-semibold text-zinc-900">
+      <section className="rounded-2xl border border-zinc-200/80 bg-white/80 p-5 backdrop-blur sm:rounded-3xl">
+        <h2 className="font-display text-lg font-bold text-zinc-900 sm:text-xl">
           {selectedCity.name} icin populer aramalar
         </h2>
-        <p className="mt-2">
-          Kullanici niyetine uygun olarak ilce sayfalari uzerinden dogrudan
+        <p className="mt-1.5 text-sm text-zinc-600">
+          Ilce sayfalari uzerinden dogrudan
           {` "${selectedCity.name} nobetci eczane"`} sorgusuna hizli cevap verilir.
         </p>
         <div className="mt-3 flex flex-wrap gap-2">
           {districts.slice(0, 10).map((district) => (
             <Link
               key={`popular-${district.slug}`}
-              className="rounded-lg border border-zinc-200 bg-white px-2 py-1 text-xs font-semibold text-zinc-700 transition hover:border-emerald-300 hover:text-emerald-700"
+              className="card-press rounded-lg border border-zinc-200 bg-zinc-50 px-2.5 py-1.5 text-xs font-semibold text-zinc-600 transition hover:border-emerald-300 hover:text-emerald-700"
               href={`/nobetci/${selectedCity.slug}/${district.slug}`}
             >
               {selectedCity.name} {district.name} nobetci eczane
