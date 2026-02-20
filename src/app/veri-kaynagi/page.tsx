@@ -5,8 +5,8 @@ export const metadata: Metadata = {
     canonical: "/veri-kaynagi",
   },
   description:
-    "NobetHizli veri kaynagi ve guncelleme modeli. Nobetci eczane bilgilerinin nereden alindigi ve nasil islendigi.",
-  title: "Veri Kaynagi",
+    "En Yakın Yer veri kaynağı ve güncelleme modeli. Nöbetçi eczane bilgilerinin nereden alındığı ve nasıl işlendiği.",
+  title: "Veri Kaynağı",
 };
 
 export default function DataSourcePage() {

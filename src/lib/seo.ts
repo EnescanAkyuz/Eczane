@@ -30,7 +30,7 @@ export const organizationSchema = {
   "@context": "https://schema.org",
   "@type": "Organization",
   logo: absoluteUrl("/favicon.ico"),
-  name: "NobetHizli",
+  name: "En Yakın Yer",
   url: SITE_URL,
 };
 
@@ -38,7 +38,7 @@ export const websiteSchema = {
   "@context": "https://schema.org",
   "@type": "WebSite",
   inLanguage: "tr-TR",
-  name: "NobetHizli",
+  name: "En Yakın Yer",
   potentialAction: {
     "@type": "SearchAction",
     "query-input": "required name=search_term_string",

@@ -207,6 +207,14 @@ export function QuickFinder({ cities }: QuickFinderProps) {
         `/api/pharmacies/nearby?lat=${coordinates.lat}&lng=${coordinates.lng}`,
       );
       setResult(payload);
+
+      // Konumdan gelen sehir ve ilce bilgilerini arama alanina yansit
+      if (payload.context.city?.slug) {
+        setSelectedCity(payload.context.city.slug);
+      }
+      if (payload.context.district?.slug) {
+        setSelectedDistrict(payload.context.district.slug);
+      }
     } catch (gpsError: unknown) {
       setResult(null);
       setError(getGeoErrorMessage(gpsError));

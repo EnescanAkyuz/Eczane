@@ -61,7 +61,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     "@type": "Article",
     author: {
       "@type": "Organization",
-      name: "NobetHizli",
+      name: "En Yakın Yer",
     },
     dateModified: post.updatedAt,
     datePublished: post.publishedAt,
@@ -71,7 +71,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     mainEntityOfPage: absoluteUrl(`/rehber/${post.slug}`),
     publisher: {
       "@type": "Organization",
-      name: "NobetHizli",
+      name: "En Yakın Yer",
     },
   };
 

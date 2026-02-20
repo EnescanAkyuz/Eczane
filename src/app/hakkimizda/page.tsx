@@ -6,8 +6,8 @@ export const metadata: Metadata = {
     canonical: "/hakkimizda",
   },
   description:
-    "NobetHizli hakkinda bilgiler. Uygulamanin amaci, veri akis modeli ve kullanici odakli hizli deneyim prensipleri.",
-  title: "Hakkimizda",
+    "En Yakın Yer hakkında bilgiler. Uygulamanın amacı, veri akış modeli ve kullanıcı odaklı hızlı deneyim prensipleri.",
+  title: "Hakkımızda",
 };
 
 export default function AboutPage() {
@@ -20,12 +20,12 @@ export default function AboutPage() {
             <path d="M12 16v-4M12 8h.01" />
           </svg>
         </div>
-        <h1 className="font-display text-2xl font-bold text-zinc-900 sm:text-3xl">Hakkimizda</h1>
+        <h1 className="font-display text-2xl font-bold text-zinc-900 sm:text-3xl">Hakkımızda</h1>
         <p className="mt-3 text-sm leading-7 text-zinc-600">
-          NobetHizli, kullanicinin en yakin nobetci eczaneyi minimum adimla bulmasi
-          icin gelistirilen mobil odakli bir web uygulamasidir. Amacimiz, karmasik
-          ekranlar yerine hizli erisim, net aksiyonlar ve guvenilir yonlendirme
-          sunmaktir.
+          En Yakın Yer, kullanıcının en yakın nöbetçi eczaneyi minimum adımla bulması
+          için geliştirilen mobil odaklı bir web uygulamasıdır. Amacımız, karmaşık
+          ekranlar yerine hızlı erişim, net aksiyonlar ve güvenilir yönlendirme
+          sunmaktır.
         </p>
         <p className="mt-3 text-sm leading-7 text-zinc-600">
           Uygulama; sehir, ilce, telefon ve konum bilgilerini kaynak sistemden cekip

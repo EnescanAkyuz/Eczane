@@ -1,13 +1,13 @@
-# NobetHizli
+# En Yakın Yer
 
-Mobil odakli, hizli ve SEO uyumlu nobetci eczane bulma web uygulamasi.
+Mobil odaklı, hızlı ve SEO uyumlu nöbetçi eczane bulma web uygulaması.
 
-## Ozellikler
+## Özellikler
 
-- Konumdan otomatik il/ilce cozumleme (`/api/pharmacies/nearby`)
-- Il + ilce secimi ile manuel hizli arama (`/api/pharmacies`)
-- Harita gorunumu (kullanici konumu + eczane pinleri)
-- Yol uzeri eczane arama (`/api/pharmacies/along-route`)
+- Konumdan otomatik il/ilçe çözümleme (`/api/pharmacies/nearby`)
+- İl + ilçe seçimi ile manuel hızlı arama (`/api/pharmacies`)
+- Harita görünümü (kullanıcı konumu + eczane pinleri)
+- Yol üzeri eczane arama (`/api/pharmacies/along-route`)
 - Mesafeye gore siralama (koordinat bazli)
 - Tek dokunusla telefon arama ve Google Maps yol tarifi
 - Sehir ve ilce bazli indekslenebilir sayfalar

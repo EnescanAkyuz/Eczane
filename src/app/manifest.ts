@@ -13,8 +13,8 @@ export default function manifest(): MetadataRoute.Manifest {
         type: "image/x-icon",
       },
     ],
-    name: "NobetHizli",
-    short_name: "NobetHizli",
+    name: "En Yakın Yer",
+    short_name: "En Yakın Yer",
     start_url: "/",
     theme_color: "#0d7a62",
   };

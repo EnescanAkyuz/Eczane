@@ -23,10 +23,10 @@ const metadataBase = new URL(SITE_URL);
 export const metadata: Metadata = {
   metadataBase,
   title: {
-    default: "NobetHizli | En Yakin Nobetci Eczane",
-    template: "%s | NobetHizli",
+    default: "En Yakın Yer | En Yakın Nöbetçi Eczane",
+    template: "%s | En Yakın Yer",
   },
-  creator: "NobetHizli",
+  creator: "En Yakın Yer",
   description:
     "Konumunu ac, en yakin nobetci eczaneyi saniyeler icinde bul ve yol tarifine basla.",
   formatDetection: {
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     telephone: false,
   },
   manifest: "/manifest.webmanifest",
-  applicationName: "NobetHizli",
+  applicationName: "En Yakın Yer",
   alternates: {
     canonical: "/",
     languages: {
@@ -52,27 +52,27 @@ export const metadata: Metadata = {
     "acik eczane",
   ],
   openGraph: {
-    title: "NobetHizli | En Yakin Nobetci Eczane",
+    title: "En Yakın Yer | En Yakın Nöbetçi Eczane",
     description:
       "Hizli arama deneyimi ile nobetci eczaneyi hemen bul, tek tikla ara ve yol tarifi al.",
     images: [
       {
-        alt: "NobetHizli",
+        alt: "En Yakın Yer",
         height: 630,
         url: "/opengraph-image",
         width: 1200,
       },
     ],
     locale: "tr_TR",
-    siteName: "NobetHizli",
+    siteName: "En Yakın Yer",
     type: "website",
     url: metadataBase,
   },
-  publisher: "NobetHizli",
+  publisher: "En Yakın Yer",
   referrer: "origin-when-cross-origin",
   twitter: {
     card: "summary_large_image",
-    title: "NobetHizli",
+    title: "En Yakın Yer",
     description:
       "Konumunu kullan, en yakin nobetci eczaneye saniyeler icinde ulas.",
     images: ["/opengraph-image"],
@@ -121,7 +121,7 @@ export default function RootLayout({
                   <path d="M12 5v14M5 12h14" />
                 </svg>
               </span>
-              NobetHizli
+              En Yakın Yer
             </Link>
 
             {/* Desktop nav */}
@@ -153,10 +153,10 @@ export default function RootLayout({
                       <path d="M12 5v14M5 12h14" />
                     </svg>
                   </span>
-                  NobetHizli
+                  En Yakın Yer
                 </Link>
                 <p className="mt-2 max-w-xs text-xs leading-5 text-zinc-500">
-                  En yakin nobetci eczaneyi hizla bulmaniz icin tasarlandi. Veriler eczaneler.gen.tr kaynagindan periyodik olarak guncellenir.
+                  En yakın nöbetçi eczaneyi hızla bulmanız için tasarlandı. Veriler eczaneler.gen.tr kaynağından periyodik olarak güncellenir.
                 </p>
               </div>
               <div className="flex flex-wrap gap-x-5 gap-y-2 text-sm">

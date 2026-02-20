@@ -15,14 +15,14 @@ export const metadata: Metadata = {
   openGraph: {
     description:
       "Konum tabanli hizli nobetci eczane bulma deneyimi. Tek ekranda arama, telefon ve yol tarifi.",
-    title: "NobetHizli | En Yakin Nobetci Eczane",
+    title: "En Yakın Yer | En Yakın Nöbetçi Eczane",
     url: "/",
   },
-  title: "Nobetci Eczane Bul",
+  title: "Nöbetçi Eczane Bul",
   twitter: {
     description:
       "Konumunu kullan, en yakin nobetci eczaneye saniyeler icinde ulas.",
-    title: "Nobetci Eczane Bul | NobetHizli",
+    title: "Nöbetçi Eczane Bul | En Yakın Yer",
   },
 };
 
@@ -172,10 +172,10 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* ── Why NobetHizli ── */}
+      {/* ── Why En Yakın Yer ── */}
       <section className="rounded-2xl border border-zinc-200/80 bg-white/80 p-5 shadow-sm backdrop-blur sm:rounded-3xl sm:p-6">
         <h2 className="font-display text-xl font-bold text-zinc-900 sm:text-2xl">
-          Neden NobetHizli?
+          Neden En Yakın Yer?
         </h2>
         <div className="mt-4 grid gap-3 sm:grid-cols-3">
           <article className="rounded-2xl border border-zinc-200 bg-gradient-to-br from-white to-emerald-50/40 p-5">

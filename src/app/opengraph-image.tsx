@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
 
-export const alt = "NobetHizli";
+export const alt = "En Yakın Yer";
 export const contentType = "image/png";
 export const size = {
   height: 630,
@@ -26,7 +26,7 @@ export default function OpenGraphImage() {
         }}
       >
         <div style={{ display: "flex", fontSize: 72, fontWeight: 700 }}>
-          NobetHizli
+          En Yakın Yer
         </div>
         <div
           style={{
@@ -37,7 +37,7 @@ export default function OpenGraphImage() {
             opacity: 0.95,
           }}
         >
-          En yakin nobetci eczane, hizli yol tarifi ve tek dokunusla arama
+          En yakın nöbetçi eczane, hızlı yol tarifi ve tek dokunuşla arama
         </div>
       </div>
     ),
