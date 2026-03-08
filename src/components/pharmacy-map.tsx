@@ -221,10 +221,15 @@ export function PharmacyMap({
       }, 80);
     }
 
-    initializeMap();
+    // Harita kütüphanesini ve resimleri yüklemeyi çok kısa süre erteliyoruz.
+    // Bu sayede tarayıcı önce sayfayı çizer, LCP/FCP metrikleri daha yüksek puan alır.
+    const timer = setTimeout(() => {
+      initializeMap();
+    }, 400);
 
     return () => {
       cancelled = true;
+      clearTimeout(timer);
       if (mapInstanceRef.current) {
         mapInstanceRef.current.remove();
         mapInstanceRef.current = null;
@@ -257,9 +262,8 @@ export function PharmacyMap({
       </div>
       <div className="relative">
         <div
-          className={`h-[50vh] min-h-[340px] w-full transition-opacity duration-300 sm:h-[58vh] sm:min-h-[450px] ${
-            loading ? "opacity-30" : "opacity-100"
-          }`}
+          className={`h-[50vh] min-h-[340px] w-full bg-zinc-50 z-0 transition-opacity duration-300 sm:h-[58vh] sm:min-h-[450px] ${loading ? "opacity-30" : "opacity-100"
+            }`}
           ref={mapContainerRef}
         />
         {loading && (
