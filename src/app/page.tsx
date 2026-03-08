@@ -11,17 +11,17 @@ export const metadata: Metadata = {
     canonical: "/",
   },
   description:
-    "Nobetci eczane bulma uygulamasi. Konumunu ac, en yakin eczaneyi saniyeler icinde bul, ara ve yol tarifine basla.",
+    "Nöbetçi eczane bulma uygulaması. Konumunu aç, en yakın eczaneyi saniyeler içinde bul, ara ve yol tarifine başla.",
   openGraph: {
     description:
-      "Konum tabanli hizli nobetci eczane bulma deneyimi. Tek ekranda arama, telefon ve yol tarifi.",
+      "Konum tabanli hızlı nöbetçi eczane bulma deneyimi. Tek ekranda arama, telefon ve yol tarifi.",
     title: "En Yakın Yer | En Yakın Nöbetçi Eczane",
     url: "/",
   },
   title: "Nöbetçi Eczane Bul",
   twitter: {
     description:
-      "Konumunu kullan, en yakin nobetci eczaneye saniyeler icinde ulas.",
+      "Konumunu kullan, en yakın nöbetçi eczaneye saniyeler içinde ulaş.",
     title: "Nöbetçi Eczane Bul | En Yakın Yer",
   },
 };
@@ -47,9 +47,9 @@ const faqSchema = {
       "@type": "Question",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Konumumu Kullan butonuna dokunun. Sistem once il ve ilceyi cozer, sonra aktif nobetci listesinden en yakin eczaneyi siralar.",
+        text: "Konumumu Kullan butonuna dokunun. Sistem önce il ve ilçeyi çözer, sonra aktif nöbetçi listesinden en yakın eczaneyi siralar.",
       },
-      name: "En yakin nobetci eczaneyi nasil bulurum?",
+      name: "En yakın nöbetçi eczaneyi nasıl bulurum?",
     },
     {
       "@type": "Question",
@@ -63,7 +63,7 @@ const faqSchema = {
       "@type": "Question",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Nobetci verileri eczaneler.gen.tr kaynagindan cekilir ve kisa araliklarla yeniden okunur.",
+        text: "Nöbetçi verileri eczaneler.gen.tr kaynağından çekilir ve kısa aralıklarla yeniden okunur.",
       },
       name: "Veriler nereden geliyor?",
     },
@@ -97,14 +97,14 @@ export default async function HomePage() {
           </div>
 
           <h1 className="mt-4 font-display text-3xl leading-[1.15] font-bold tracking-tight text-zinc-900 sm:text-4xl md:text-5xl">
-            En yakin nobetci eczaneyi{" "}
+            En yakın nöbetçi eczaneyi{" "}
             <span className="bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">
               saniyede bul.
             </span>
           </h1>
 
           <p className="mt-4 max-w-2xl text-[15px] leading-relaxed text-zinc-600 sm:text-base">
-            Konumunu ac, sana en yakin acik eczaneleri haritada gor, tek tikla
+            Konumunu aç, sana en yakın açık eczaneleri haritada gör, tek tıkla
             ara veya yol tarifini baslat. Hic kayit veya indirme yok.
           </p>
 
@@ -142,13 +142,13 @@ export default async function HomePage() {
       <section className="rounded-2xl border border-zinc-200/80 bg-white/80 p-5 shadow-sm backdrop-blur sm:rounded-3xl sm:p-6">
         <div className="mb-4 flex items-center justify-between">
           <h2 className="font-display text-xl font-bold text-zinc-900 sm:text-2xl">
-            Sehirden hizli giris
+            Şehirden hızlı giriş
           </h2>
           <Link
             className="flex items-center gap-1 text-sm font-semibold text-emerald-600 transition hover:text-emerald-700"
             href="/nobetci"
           >
-            Tum sehirler
+            Tüm şehirler
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="m9 18 6-6-6-6" />
             </svg>
@@ -186,7 +186,7 @@ export default async function HomePage() {
             </div>
             <h3 className="font-display text-base font-bold text-zinc-900">Aninda sonuc</h3>
             <p className="mt-1.5 text-sm leading-relaxed text-zinc-600">
-              Konum + aktif nobet bilgisi + mesafe hesabi tek istekte birlesir. Saniyeler icinde sonuc.
+              Konum + aktif nöbet bilgisi + mesafe hesabı tek istekte birleşir. Saniyeler içinde sonuç.
             </p>
           </article>
           <article className="rounded-2xl border border-zinc-200 bg-gradient-to-br from-white to-sky-50/40 p-5">
@@ -198,7 +198,7 @@ export default async function HomePage() {
             </div>
             <h3 className="font-display text-base font-bold text-zinc-900">Sade arayuz</h3>
             <p className="mt-1.5 text-sm leading-relaxed text-zinc-600">
-              Gereksiz menuler, reklamlar yok. Ilk kart her zaman en yakin eczane.
+              Gereksiz menüler, reklamlar yok. İlk kart her zaman en yakın eczane.
             </p>
           </article>
           <article className="rounded-2xl border border-zinc-200 bg-gradient-to-br from-white to-violet-50/40 p-5">
@@ -218,10 +218,10 @@ export default async function HomePage() {
       {/* ── Popular Searches ── */}
       <section className="rounded-2xl border border-zinc-200/80 bg-white/80 p-5 shadow-sm backdrop-blur sm:rounded-3xl sm:p-6">
         <h2 className="font-display text-xl font-bold text-zinc-900 sm:text-2xl">
-          Populer nobetci eczane aramalari
+          Popüler nöbetçi eczane aramaları
         </h2>
         <p className="mt-1.5 text-sm text-zinc-600">
-          Sehir sayfalarindan ilce secerek aktif nobetci eczane listesine hizla gesin.
+          Şehir sayfalarından ilçe seçerek aktif nöbetçi eczane listesine hizla gesin.
         </p>
 
         <ul className="mt-4 grid list-none grid-cols-1 gap-2 p-0 sm:grid-cols-2 lg:grid-cols-3">
@@ -235,7 +235,7 @@ export default async function HomePage() {
                   <circle cx="11" cy="11" r="8" />
                   <path d="m21 21-4.35-4.35" />
                 </svg>
-                {city.name} nobetci eczane
+                {city.name} nöbetçi eczane
               </Link>
             </li>
           ))}
@@ -250,11 +250,11 @@ export default async function HomePage() {
         <div className="mt-4 space-y-4 text-sm leading-relaxed text-zinc-600">
           <article className="rounded-xl border border-zinc-100 bg-zinc-50/60 p-4">
             <h3 className="font-semibold text-zinc-900">
-              En yakin nobetci eczane nasil bulunur?
+              En yakın nöbetçi eczane nasil bulunur?
             </h3>
             <p className="mt-1.5">
               Konumunu kullanarak il ve ilce otomatik belirlenir. Ardindan aktif
-              nobet listesi mesafeye gore siralanir ve en yakin eczane en ustte
+              nöbet listesi mesafeye göre sıralanır ve en yakın eczane en üstte
               gosterilir.
             </p>
           </article>
@@ -269,7 +269,7 @@ export default async function HomePage() {
           </article>
           <article className="rounded-xl border border-zinc-100 bg-zinc-50/60 p-4">
             <h3 className="font-semibold text-zinc-900">
-              Nobetci eczane verisi ne kadar guncel?
+              Nöbetçi eczane verisi ne kadar guncel?
             </h3>
             <p className="mt-1.5">
               Veriler kaynak sistemden periyodik olarak cekilir ve sayfalarda son

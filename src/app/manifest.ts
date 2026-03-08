@@ -4,7 +4,7 @@ export default function manifest(): MetadataRoute.Manifest {
   return {
     background_color: "#f5fcf9",
     categories: ["health", "utilities"],
-    description: "Konum tabanli hizli nobetci eczane bulma uygulamasi",
+    description: "Konum tabanli hızlı nöbetçi eczane bulma uygulaması",
     display: "standalone",
     icons: [
       {

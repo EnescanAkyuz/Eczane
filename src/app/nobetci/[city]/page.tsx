@@ -32,21 +32,21 @@ export async function generateMetadata({
         "tr-TR": `/nobetci/${selectedCity.slug}`,
       },
     },
-    description: `${selectedCity.name} icin ilce bazli nobetci eczane listesi. Ilcenizi secip aktif nobetci eczaneleri hemen goruntuleyin.`,
+    description: `${selectedCity.name} icin ilçe bazlı nöbetçi eczane listesi. İlçenizi seçip aktif nöbetçi eczaneleri hemen görüntüleyin.`,
     keywords: [
-      `${selectedCity.name} nobetci eczane`,
+      `${selectedCity.name} nöbetçi eczane`,
       `${selectedCity.name} acik eczane`,
-      `${selectedCity.name} en yakin eczane`,
+      `${selectedCity.name} en yakın eczane`,
     ],
     openGraph: {
-      description: `${selectedCity.name} ilindeki ilceler icin guncel nobetci eczane listesi.`,
-      title: `${selectedCity.name} Nobetci Eczane`,
+      description: `${selectedCity.name} ilindeki ilceler icin güncel nöbetçi eczane listesi.`,
+      title: `${selectedCity.name} Nöbetçi Eczane`,
       url: `/nobetci/${selectedCity.slug}`,
     },
-    title: `${selectedCity.name} Nobetci Eczane`,
+    title: `${selectedCity.name} Nöbetçi Eczane`,
     twitter: {
-      description: `${selectedCity.name} ilce bazli nobetci eczane listesi.`,
-      title: `${selectedCity.name} Nobetci Eczane`,
+      description: `${selectedCity.name} ilçe bazlı nöbetçi eczane listesi.`,
+      title: `${selectedCity.name} Nöbetçi Eczane`,
     },
   };
 }
@@ -69,7 +69,7 @@ export default async function CityPage({ params }: CityPageProps) {
 
   const breadcrumbSchema = buildBreadcrumbSchema([
     { name: "Ana Sayfa", path: "/" },
-    { name: "Sehirler", path: "/nobetci" },
+    { name: "Şehirler", path: "/nobetci" },
     { name: selectedCity.name, path: `/nobetci/${selectedCity.slug}` },
   ]);
 
@@ -81,15 +81,15 @@ export default async function CityPage({ params }: CityPageProps) {
         "@type": "Question",
         acceptedAnswer: {
           "@type": "Answer",
-          text: `${selectedCity.name} ilinde ilcenizi secerek aktif nobetci eczane listesine ulasabilirsiniz.`,
+          text: `${selectedCity.name} ilinde ilçenizi seçerek aktif nöbetçi eczane listesine ulasabilirsiniz.`,
         },
-        name: `${selectedCity.name} icin nobetci eczane nasil bulunur?`,
+        name: `${selectedCity.name} icin nöbetçi eczane nasıl bulunur?`,
       },
       {
         "@type": "Question",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Ilce sayfasinda telefon ve yol tarifi linkleri ile en yakin eczaneye hizli erisim saglayabilirsiniz.",
+          text: "Ilce sayfasinda telefon ve yol tarifi linkleri ile en yakın eczaneye hızlı erişim sağlayabilirsiniz.",
         },
         name: "Ilce sayfasinda hangi bilgiler var?",
       },
@@ -109,7 +109,7 @@ export default async function CityPage({ params }: CityPageProps) {
             <li className="text-zinc-300">/</li>
             <li>
               <Link className="transition hover:text-emerald-700" href="/nobetci">
-                Sehirler
+                Şehirler
               </Link>
             </li>
             <li className="text-zinc-300">/</li>
@@ -120,10 +120,10 @@ export default async function CityPage({ params }: CityPageProps) {
         <header>
           <span className="text-xs font-semibold uppercase tracking-wider text-emerald-600">Sehir</span>
           <h1 className="mt-1 font-display text-2xl font-bold text-zinc-900 sm:text-3xl">
-            {selectedCity.name} Nobetci Eczane Ilceleri
+            {selectedCity.name} Nöbetçi Eczane Ilceleri
           </h1>
           <p className="mt-2 text-sm text-zinc-600">
-            Ilcenizi secin, aktif nobetci eczane listesi hemen acilsin.
+            Ilcenizi secin, aktif nöbetçi eczane listesi hemen acilsin.
           </p>
         </header>
       </section>
@@ -150,7 +150,7 @@ export default async function CityPage({ params }: CityPageProps) {
         </h2>
         <p className="mt-1.5 text-sm text-zinc-600">
           Ilce sayfalari uzerinden dogrudan
-          {` "${selectedCity.name} nobetci eczane"`} sorgusuna hizli cevap verilir.
+          {` "${selectedCity.name} nöbetçi eczane"`} sorgusuna hızlı cevap verilir.
         </p>
         <div className="mt-3 flex flex-wrap gap-2">
           {districts.slice(0, 10).map((district) => (
@@ -159,7 +159,7 @@ export default async function CityPage({ params }: CityPageProps) {
               className="card-press rounded-lg border border-zinc-200 bg-zinc-50 px-2.5 py-1.5 text-xs font-semibold text-zinc-600 transition hover:border-emerald-300 hover:text-emerald-700"
               href={`/nobetci/${selectedCity.slug}/${district.slug}`}
             >
-              {selectedCity.name} {district.name} nobetci eczane
+              {selectedCity.name} {district.name} nöbetçi eczane
             </Link>
           ))}
         </div>

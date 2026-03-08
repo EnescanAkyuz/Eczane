@@ -43,7 +43,7 @@ function buildPopupHtml(pharmacy: Pharmacy, badge: string, distance: string, rou
   const lines = [
     `<div style="font-family:var(--font-manrope),system-ui,sans-serif;min-width:180px">`,
     `<div style="display:flex;align-items:center;gap:6px;margin-bottom:6px">`,
-    `<span style="display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:6px;background:${badge === "En yakin" ? "#059669" : "#e5e7eb"};color:${badge === "En yakin" ? "#fff" : "#71717a"};font-size:11px;font-weight:700">+</span>`,
+    `<span style="display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:6px;background:${badge === "En yakın" ? "#059669" : "#e5e7eb"};color:${badge === "En yakın" ? "#fff" : "#71717a"};font-size:11px;font-weight:700">+</span>`,
     `<strong style="font-size:14px;color:#18181b">${escapeHtml(pharmacy.name)}</strong>`,
     `</div>`,
     `<div style="font-size:12px;color:#52525b;margin-bottom:4px">${escapeHtml(pharmacy.district)}, ${escapeHtml(pharmacy.city)}</div>`,
@@ -173,7 +173,7 @@ export function PharmacyMap({
 
         const markerColor = index === 0 ? "#dc2626" : "#16a34a";
         const borderColor = index === 0 ? "#991b1b" : "#166534";
-        const badge = index === 0 ? "En yakin" : "Eczane";
+        const badge = index === 0 ? "En yakın" : "Eczane";
         const distance = formatDistanceLabel(pharmacy.distanceKm);
         const routeDistance = formatDistanceLabel(pharmacy.routeDistanceKm);
 
@@ -248,7 +248,7 @@ export function PharmacyMap({
             <span className="h-2.5 w-2.5 rounded-full bg-blue-500" /> Sen
           </span>
           <span className="flex items-center gap-1">
-            <span className="h-2.5 w-2.5 rounded-full bg-red-500" /> En yakin
+            <span className="h-2.5 w-2.5 rounded-full bg-red-500" /> En yakın
           </span>
           <span className="flex items-center gap-1">
             <span className="h-2.5 w-2.5 rounded-full bg-green-500" /> Diger

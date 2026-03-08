@@ -24,7 +24,7 @@ export async function GET(request: Request) {
     const result = await getDutyPharmaciesBySelection(city, district);
     if (!result.pharmacies.length) {
       return NextResponse.json(
-        { error: "Secilen bolge icin aktif nobetci eczane bulunamadi" },
+        { error: "Secilen bolge için aktif nöbetçi eczane bulunamadi" },
         { headers: SEO_SAFE_HEADERS, status: 404 },
       );
     }
@@ -41,7 +41,7 @@ export async function GET(request: Request) {
         error:
           error instanceof Error
             ? error.message
-            : "Nobetci eczane listesi alinamadi",
+            : "Nöbetçi eczane listesi alinamadi",
       },
       { headers: SEO_SAFE_HEADERS, status: 500 },
     );

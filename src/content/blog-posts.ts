@@ -18,21 +18,21 @@ export const blogPosts: BlogPost[] = [
   {
     category: "Nobet Rehberi",
     description:
-      "Nobetci eczane ararken vakit kaybetmemek icin kullanabilecegin pratik adimlar.",
+      "Nöbetçi eczane ararken vakit kaybetmemek için kullanabileceğin pratik adımlar.",
     publishedAt: "2026-02-14",
     readMinutes: 4,
     sections: [
       {
         heading: "1) Once konum, sonra telefon",
         paragraphs: [
-          "Acil durumda en sik zaman kaybi, yanlis eczaneye gitmekten kaynaklanir. Bu nedenle once konumdan en yakin eczaneyi bulup hemen telefonla teyit almak iyi bir pratiktir.",
+          "Acil durumda en sık zaman kaybı, yanlış eczaneye gitmekten kaynaklanır. Bu nedenle önce konumdan en yakın eczaneyi bulup hemen telefonla teyit almak iyi bir pratiktir.",
           "Haritada pin kontrolu ve tek dokunusla arama ikilisi, gece saatlerinde yanlis yonlenme riskini azaltir.",
         ],
       },
       {
         heading: "2) Yol uzerindeki eczaneyi sec",
         paragraphs: [
-          "Eve donus, hastane cikisi veya havaalani rotasi gibi durumlarda en yakin eczane her zaman en hizli cozum olmaz.",
+          "Eve dönüş, hastane çıkışı veya havaalanı rotası gibi durumlarda en yakın eczane her zaman en hızlı çözüm olmaz.",
           "Rota uzerindeki eczane secimi, toplam sureyi kisaltir ve ekstra sapma maliyetini dusurur.",
         ],
       },
@@ -45,13 +45,13 @@ export const blogPosts: BlogPost[] = [
       },
     ],
     slug: "nobetci-eczane-hizli-bulma-rehberi",
-    title: "Nobetci Eczane Hizli Bulma Rehberi",
+    title: "Nöbetçi Eczane Hızlı Bulma Rehberi",
     updatedAt: "2026-02-14",
   },
   {
     category: "Mobil Deneyim",
     description:
-      "Mobilde nobetci eczane aramasini hizlandiran arayuz prensipleri ve kullanim aliskanliklari.",
+      "Mobilde nöbetçi eczane aramasını hızlandıran arayüz prensipleri ve kullanım alışkanlıkları.",
     publishedAt: "2026-02-14",
     readMinutes: 5,
     sections: [
@@ -66,18 +66,18 @@ export const blogPosts: BlogPost[] = [
         heading: "Harita olmadan guven azalir",
         paragraphs: [
           "Adres metni tek basina yeterli olmaz. Kullanici pin gorerek konumu dogrulamak ister.",
-          "Bu nedenle kullanici konumu, en yakin eczane ve rota cizgisi ayni harita panelinde sunulunca terk orani duser.",
+          "Bu nedenle kullanici konumu, en yakın eczane ve rota cizgisi aynı harita panelinde sunulunca terk oranı düşer.",
         ],
       },
     ],
     slug: "mobilde-nobetci-eczane-deneyimi",
-    title: "Mobilde Nobetci Eczane Deneyimi Nasıl Guclenir?",
+    title: "Mobilde Nöbetçi Eczane Deneyimi Nasıl Guclenir?",
     updatedAt: "2026-02-14",
   },
   {
     category: "SEO",
     description:
-      "Nobetci eczane sitesinde programatik sayfalar, schema ve icerik stratejisi nasil birlikte calisir?",
+      "Nöbetçi eczane sitesinde programatik sayfalar, schema ve içerik stratejisi nasıl birlikte çalışır?",
     publishedAt: "2026-02-14",
     readMinutes: 6,
     sections: [
@@ -85,7 +85,7 @@ export const blogPosts: BlogPost[] = [
         heading: "Programatik sehir ve ilce sayfalari",
         paragraphs: [
           "Yerel aramalarda kullanici niyeti genellikle sehir ve ilce bazindadir. Bu nedenle sehir > ilce > aktif liste hiyerarsisi, dogru indeksleme sinyali verir.",
-          "Her sayfada ayni metni kopyalamak yerine yerel, guncel ve kullaniciya yardimci icerik olmasi gerekir.",
+          "Her sayfada aynı metni kopyalamak yerine yerel, güncel ve kullanıcıya yardımcı içerik olması gerekir.",
         ],
       },
       {
@@ -97,7 +97,7 @@ export const blogPosts: BlogPost[] = [
       },
     ],
     slug: "nobetci-eczane-seo-stratejisi",
-    title: "Nobetci Eczane SEO Stratejisi: Programatik Sayfalar + Blog",
+    title: "Nöbetçi Eczane SEO Stratejisi: Programatik Sayfalar + Blog",
     updatedAt: "2026-02-14",
   },
 ];

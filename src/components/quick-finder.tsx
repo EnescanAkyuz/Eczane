@@ -229,10 +229,10 @@ export function QuickFinder({ cities }: QuickFinderProps) {
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div className="hidden sm:block">
           <h2 className="font-display text-xl font-bold text-zinc-900 sm:text-2xl">
-            Haritada Nobetci Eczane Bul
+            Haritada Nöbetçi Eczane Bul
           </h2>
           <p className="mt-0.5 text-sm text-zinc-500">
-            Konum ac veya sehir sec, en yakin eczaneleri gor.
+            Konum aç veya şehir seç, en yakın eczaneleri gor.
           </p>
         </div>
         <button
@@ -268,8 +268,8 @@ export function QuickFinder({ cities }: QuickFinderProps) {
           <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
         </svg>
         <span>
-          Konum verini sadece en yakin eczaneyi bulmak icin kullaniriz. Veri saklanmaz.
-          Izin vermezsen sehir/ilce secerek kullanmaya devam edebilirsin.
+          Konum verisini sadece en yakın eczaneyi bulmak için kullanırız. Veri saklanmaz.
+          Izin vermezsen sehir/ilçe seçerek kullanmaya devam edebilirsin.
         </span>
       </div>
 
@@ -438,7 +438,7 @@ export function QuickFinder({ cities }: QuickFinderProps) {
             </svg>
           </span>
           <p className="text-sm text-zinc-500">
-            Konumunu acinca veya sehir/ilce secince harita pinleri ve eczane
+            Konumunu açinca veya sehir/ilce secince harita pinleri ve eczane
             listesi otomatik gelir.
           </p>
         </div>
@@ -459,9 +459,9 @@ export function QuickFinder({ cities }: QuickFinderProps) {
               Konum Izni Bilgilendirmesi
             </h3>
             <p className="mt-2 text-sm leading-relaxed text-zinc-600">
-              Konumunu yalnizca en yakin nobetci eczaneyi bulmak ve haritada pin
-              gostermek icin kullaniriz. Konum verisi saklanmaz. Izin vermezsen
-              sehir/ilce secerek kullanmaya devam edebilirsin.
+              Konumunu yalnızca en yakın nöbetçi eczaneyi bulmak ve haritada pin
+              gostermek için kullanırız. Konum verisi saklanmaz. Izin vermezsen
+              sehir/ilçe seçerek kullanmaya devam edebilirsin.
             </p>
             <div className="mt-5 grid grid-cols-2 gap-2">
               <button

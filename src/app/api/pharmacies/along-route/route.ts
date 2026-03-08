@@ -65,7 +65,7 @@ export async function GET(request: Request) {
         error:
           error instanceof Error
             ? error.message
-            : "Rota boyunca nobetci eczane bulunamiyor",
+            : "Rota boyunca nöbetçi eczane bulunamiyor",
       },
       { headers: SEO_SAFE_HEADERS, status: 500 },
     );

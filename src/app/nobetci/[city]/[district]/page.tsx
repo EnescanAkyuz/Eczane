@@ -56,22 +56,22 @@ export async function generateMetadata({
         "tr-TR": `/nobetci/${result.context.city.slug}/${result.context.district.slug}`,
       },
     },
-    description: `${districtName} ${cityName} icin aktif nobetci eczane listesi. Telefon ve yol tarifi bilgileri ile hizli erisim.`,
+    description: `${districtName} ${cityName} için aktif nöbetçi eczane listesi. Telefon ve yol tarifi bilgileri ile hızlı erişim.`,
     keywords: [
-      `${districtName} nobetci eczane`,
-      `${cityName} ${districtName} nobetci eczane`,
+      `${districtName} nöbetçi eczane`,
+      `${cityName} ${districtName} nöbetçi eczane`,
       `${districtName} acik eczane`,
-      `${districtName} en yakin eczane`,
+      `${districtName} en yakın eczane`,
     ],
     openGraph: {
-      description: `${districtName} / ${cityName} aktif nobetci eczane listesi, telefon ve yol tarifi bilgileri.`,
-      title: `${districtName} Nobetci Eczane`,
+      description: `${districtName} / ${cityName} aktif nöbetçi eczane listesi, telefon ve yol tarifi bilgileri.`,
+      title: `${districtName} Nöbetçi Eczane`,
       url: `/nobetci/${result.context.city.slug}/${result.context.district.slug}`,
     },
-    title: `${districtName} Nobetci Eczane`,
+    title: `${districtName} Nöbetçi Eczane`,
     twitter: {
-      description: `${districtName} icin guncel nobetci eczaneler.`,
-      title: `${districtName} Nobetci Eczane`,
+      description: `${districtName} icin güncel nöbetçi eczaneler.`,
+      title: `${districtName} Nöbetçi Eczane`,
     },
   };
 }
@@ -94,7 +94,7 @@ export default async function DistrictPage({ params }: DistrictPageProps) {
 
   const cityName = result.context.city.name;
   const districtName = result.context.district.name;
-  const pageTitle = `${districtName} Nobetci Eczaneleri`;
+  const pageTitle = `${districtName} Nöbetçi Eczaneleri`;
   const siblings = await getDistrictsByCity(result.context.city.slug).catch(() => []);
   const relatedDistricts = siblings
     .filter((item) => item.slug !== result.context.district.slug)
@@ -122,12 +122,12 @@ export default async function DistrictPage({ params }: DistrictPageProps) {
       },
       position: index + 1,
     })),
-    name: `${districtName} ${cityName} Nobetci Eczaneleri`,
+    name: `${districtName} ${cityName} Nöbetçi Eczaneleri`,
   };
 
   const breadcrumbSchema = buildBreadcrumbSchema([
     { name: "Ana Sayfa", path: "/" },
-    { name: "Sehirler", path: "/nobetci" },
+    { name: "Şehirler", path: "/nobetci" },
     { name: cityName, path: `/nobetci/${result.context.city.slug}` },
     {
       name: districtName,
@@ -143,9 +143,9 @@ export default async function DistrictPage({ params }: DistrictPageProps) {
         "@type": "Question",
         acceptedAnswer: {
           "@type": "Answer",
-          text: `${districtName} icin listelenen ilk eczane genellikle konuma gore en yakin adaydir. Yol tarifi baglantisi ile dogrudan navigasyon baslatabilirsiniz.`,
+          text: `${districtName} için listelenen ilk eczane genellikle konuma göre en yakın adaydır. Yol tarifi baglantisi ile doğrudan navigasyon başlatabilirsiniz.`,
         },
-        name: `${districtName} en yakin nobetci eczane nasil bulunur?`,
+        name: `${districtName} en yakın nöbetçi eczane nasıl bulunur?`,
       },
       {
         "@type": "Question",
@@ -170,7 +170,7 @@ export default async function DistrictPage({ params }: DistrictPageProps) {
           <li className="text-zinc-300">/</li>
           <li>
             <Link className="transition hover:text-emerald-700" href="/nobetci">
-              Sehirler
+              Şehirler
             </Link>
           </li>
           <li className="text-zinc-300">/</li>
@@ -220,13 +220,13 @@ export default async function DistrictPage({ params }: DistrictPageProps) {
           <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z" />
           <path d="M12 9v4M12 17h.01" />
         </svg>
-        Bu sayfa yalnizca yonlendirme amacli nobetci eczane bilgisi sunar. Acil tibbi durumlarda 112 Acil aranmalidir.
+        Bu sayfa yalnizca yönlendirme amaçlı nöbetçi eczane bilgisi sunar. Acil tibbi durumlarda 112 Acil aranmalıdır.
       </div>
 
       {relatedDistricts.length > 0 ? (
         <section className="rounded-2xl border border-zinc-200/80 bg-white/80 p-5 backdrop-blur sm:rounded-3xl">
           <h2 className="font-display text-lg font-bold text-zinc-900 sm:text-xl">
-            {cityName} icindeki diger ilceler
+            {cityName} içindeki diğer ilçeler
           </h2>
           <div className="mt-3 flex flex-wrap gap-2">
             {relatedDistricts.map((districtItem) => (
@@ -235,7 +235,7 @@ export default async function DistrictPage({ params }: DistrictPageProps) {
                 className="card-press rounded-lg border border-zinc-200 bg-zinc-50 px-2.5 py-1.5 text-xs font-semibold text-zinc-600 transition hover:border-emerald-300 hover:text-emerald-700"
                 href={`/nobetci/${result.context.city.slug}/${districtItem.slug}`}
               >
-                {districtItem.name} nobetci eczane
+                {districtItem.name} nöbetçi eczane
               </Link>
             ))}
           </div>

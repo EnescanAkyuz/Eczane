@@ -29,7 +29,7 @@ export const metadata: Metadata = {
   },
   creator: "En Yakın Yer",
   description:
-    "Konumunu ac, en yakin nobetci eczaneyi saniyeler icinde bul ve yol tarifine basla.",
+    "Konumunu aç, en yakın nöbetçi eczaneyi saniyeler içinde bul ve yol tarifine başla.",
   formatDetection: {
     address: false,
     date: false,
@@ -46,16 +46,16 @@ export const metadata: Metadata = {
   },
   category: "health",
   keywords: [
-    "nobetci eczane",
-    "en yakin eczane",
-    "nobetci eczane bul",
+    "nöbetçi eczane",
+    "en yakın eczane",
+    "nöbetçi eczane bul",
     "eczane yol tarifi",
     "acik eczane",
   ],
   openGraph: {
     title: "En Yakın Yer | En Yakın Nöbetçi Eczane",
     description:
-      "Hizli arama deneyimi ile nobetci eczaneyi hemen bul, tek tikla ara ve yol tarifi al.",
+      "Hızlı arama deneyimi ile nöbetçi eczaneyi hemen bul, tek tıkla ara ve yol tarifi al.",
     images: [
       {
         alt: "En Yakın Yer",
@@ -75,7 +75,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "En Yakın Yer",
     description:
-      "Konumunu kullan, en yakin nobetci eczaneye saniyeler icinde ulas.",
+      "Konumunu kullan, en yakın nöbetçi eczaneye saniyeler içinde ulaş.",
     images: ["/opengraph-image"],
   },
   verification: {
@@ -128,10 +128,10 @@ export default function RootLayout({
             {/* Desktop nav */}
             <nav className="hidden items-center gap-1 sm:flex">
               <Link className="rounded-xl px-3 py-2 text-sm font-medium text-zinc-600 transition hover:bg-emerald-50 hover:text-emerald-700" href="/">
-                Hizli Bul
+                Hızlı Bul
               </Link>
               <Link className="rounded-xl px-3 py-2 text-sm font-medium text-zinc-600 transition hover:bg-emerald-50 hover:text-emerald-700" href="/nobetci">
-                Sehirler
+                Şehirler
               </Link>
               <Link className="rounded-xl px-3 py-2 text-sm font-medium text-zinc-600 transition hover:bg-emerald-50 hover:text-emerald-700" href="/rehber">
                 Rehber
@@ -162,21 +162,21 @@ export default function RootLayout({
               </div>
               <div className="flex flex-wrap gap-x-5 gap-y-2 text-sm">
                 <Link className="font-medium text-zinc-600 transition hover:text-emerald-700" href="/hakkimizda">
-                  Hakkimizda
+                  Hakkımızda
                 </Link>
                 <Link className="font-medium text-zinc-600 transition hover:text-emerald-700" href="/veri-kaynagi">
-                  Veri Kaynagi
+                  Veri Kaynağı
                 </Link>
                 <Link className="font-medium text-zinc-600 transition hover:text-emerald-700" href="/rehber">
                   Rehber
                 </Link>
                 <Link className="font-medium text-zinc-600 transition hover:text-emerald-700" href="/nobetci">
-                  Sehirler
+                  Şehirler
                 </Link>
               </div>
             </div>
             <div className="mt-4 border-t border-zinc-200 pt-4 text-center text-[11px] text-zinc-400">
-              Bu site tibbi danismanlik sunmaz. Acil durumlarda 112 arayiniz.
+              Bu site tıbbi danışmanlık sunmaz. Acil durumlarda 112 arayınız.
             </div>
           </footer>
         </div>

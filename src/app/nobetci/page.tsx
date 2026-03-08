@@ -13,19 +13,19 @@ export const metadata: Metadata = {
     },
   },
   description:
-    "Turkiye geneli nobetci eczane sehir listesi. Sehrinizi secin, ilce sayfasina hizla gecin.",
+    "Turkiye geneli nöbetçi eczane sehir listesi. Sehrinizi secin, ilce sayfasina hizla gecin.",
   keywords: [
-    "sehirlere gore nobetci eczane",
-    "turkiye nobetci eczane",
-    "ilce bazli nobetci eczane",
+    "şehirlere göre nöbetçi eczane",
+    "turkiye nöbetçi eczane",
+    "ilce bazli nöbetçi eczane",
   ],
   openGraph: {
     description:
-      "Sehirlere gore nobetci eczane listesi. Sehrini sec, ilce sayfasindan guncel nobetci eczanelere ulas.",
-    title: "Sehirlere Gore Nobetci Eczane",
+      "Şehirlere göre nöbetçi eczane listesi. Şehrini seç, ilçe sayfasından güncel nöbetçi eczanelere ulaş.",
+    title: "Şehirlere Gore Nöbetçi Eczane",
     url: "/nobetci",
   },
-  title: "Sehirlere Gore Nobetci Eczane",
+  title: "Şehirlere Gore Nöbetçi Eczane",
 };
 
 export const revalidate = 3600;
@@ -47,7 +47,7 @@ export default async function CitiesPage({ searchParams }: CitiesPageProps) {
 
   const breadcrumbSchema = buildBreadcrumbSchema([
     { name: "Ana Sayfa", path: "/" },
-    { name: "Sehirler", path: "/nobetci" },
+    { name: "Şehirler", path: "/nobetci" },
   ]);
 
   return (
@@ -61,15 +61,15 @@ export default async function CitiesPage({ searchParams }: CitiesPageProps) {
               </Link>
             </li>
             <li className="text-zinc-300">/</li>
-            <li className="font-medium text-zinc-700">Sehirler</li>
+            <li className="font-medium text-zinc-700">Şehirler</li>
           </ol>
         </nav>
 
         <h1 className="font-display text-2xl font-bold text-zinc-900 sm:text-3xl">
-          Sehirlere Gore Nobetci Eczane
+          Şehirlere Gore Nöbetçi Eczane
         </h1>
         <p className="mt-2 text-sm text-zinc-600">
-          Sehrinizi secin, ilce sayfasina gecin, aktif nobetci eczaneleri gorun.
+          Sehrinizi secin, ilce sayfasina gecin, aktif nöbetçi eczaneleri gorun.
         </p>
 
         <form action="/nobetci" className="mt-4 grid gap-2 sm:grid-cols-[1fr_auto]">

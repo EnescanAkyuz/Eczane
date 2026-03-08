@@ -20,14 +20,14 @@ export default function DataSourcePage() {
             <path d="M3 12a9 3 0 0 0 18 0" />
           </svg>
         </div>
-        <h1 className="font-display text-2xl font-bold text-zinc-900 sm:text-3xl">Veri Kaynagi</h1>
+        <h1 className="font-display text-2xl font-bold text-zinc-900 sm:text-3xl">Veri Kaynağı</h1>
         <p className="mt-3 text-sm leading-7 text-zinc-600">
-          Nobetci eczane verileri, kamuya acik sayfalardan okunarak elde edilir:
+          Nöbetçi eczane verileri, kamuya açık sayfalardan okunarak elde edilir:
           <strong> eczaneler.gen.tr</strong>.
         </p>
         <p className="mt-3 text-sm leading-7 text-zinc-600">
           Uygulama bu verileri sunucu tarafinda parse eder, standart bir veri modeline
-          donusturur ve kisa sureli onbellekle hizli teslim eder.
+          dönüştürür ve kısa süreli önbellekle hızlı teslim eder.
         </p>
         <p className="mt-3 text-sm leading-7 text-zinc-600">
           Konumdan il/ilce cozumleme icin OpenStreetMap Nominatim servisi kullanilir.
@@ -38,7 +38,7 @@ export default function DataSourcePage() {
           <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z" />
           <path d="M12 9v4M12 17h.01" />
         </svg>
-        Bu sayfa tibbi danismanlik sunmaz. Acil durumlarda 112 Acil aranmalidir.
+        Bu sayfa tıbbi danışmanlık sunmaz. Acil durumlarda 112 Acil aranmalıdır.
       </div>
     </main>
   );

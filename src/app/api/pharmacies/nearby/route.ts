@@ -39,7 +39,7 @@ export async function GET(request: Request) {
     const result = await getNearestDutyPharmacies(lat, lng);
     if (!result.pharmacies.length) {
       return NextResponse.json(
-        { error: "Bu konum icin nobetci eczane bulunamadi" },
+        { error: "Bu konum icin nöbetçi eczane bulunamadi" },
         { headers: SEO_SAFE_HEADERS, status: 404 },
       );
     }
@@ -56,7 +56,7 @@ export async function GET(request: Request) {
         error:
           error instanceof Error
             ? error.message
-            : "En yakin nobetci eczane su anda bulunamiyor",
+            : "En yakın nöbetçi eczane su anda bulunamiyor",
       },
       { headers: SEO_SAFE_HEADERS, status: 500 },
     );

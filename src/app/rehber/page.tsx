@@ -9,7 +9,7 @@ export const metadata: Metadata = {
     canonical: "/rehber",
   },
   description:
-    "Nobetci eczane, mobil kullanim ve yerel SEO odakli rehber yazilari.",
+    "Nöbetçi eczane, mobil kullanim ve yerel SEO odakli rehber yazilari.",
   title: "Rehber",
 };
 
@@ -36,7 +36,7 @@ export default function GuidePage() {
 
         <h1 className="font-display text-2xl font-bold text-zinc-900 sm:text-3xl">Rehber</h1>
         <p className="mt-2 text-sm text-zinc-600">
-          Nobetci eczane kullanimina dair ek bilgi ve strateji icerikleri bu bolumde yer alir.
+          Nöbetçi eczane kullanimina dair ek bilgi ve strateji icerikleri bu bolumde yer alir.
         </p>
       </section>
 

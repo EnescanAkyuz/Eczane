@@ -35,7 +35,7 @@ export default function AboutPage() {
         <p className="mt-3 text-sm leading-7 text-zinc-600">
           Veri akis detayi icin{" "}
           <Link className="font-semibold text-emerald-700 transition hover:text-emerald-600" href="/veri-kaynagi">
-            Veri Kaynagi
+            Veri Kaynağı
           </Link>{" "}
           sayfasini inceleyebilirsiniz.
         </p>

@@ -32,14 +32,14 @@ export function MobileNav() {
               onClick={() => setIsOpen(false)}
               className="rounded-xl px-4 py-3 text-sm font-semibold text-zinc-700 transition hover:bg-emerald-50 hover:text-emerald-700"
             >
-              Hizli Bul
+              Hızlı Bul
             </Link>
             <Link
               href="/nobetci"
               onClick={() => setIsOpen(false)}
               className="rounded-xl px-4 py-3 text-sm font-semibold text-zinc-700 transition hover:bg-emerald-50 hover:text-emerald-700"
             >
-              Sehirler
+              Şehirler
             </Link>
             <Link
               href="/rehber"
@@ -53,7 +53,7 @@ export function MobileNav() {
               onClick={() => setIsOpen(false)}
               className="rounded-xl px-4 py-3 text-sm font-semibold text-zinc-700 transition hover:bg-emerald-50 hover:text-emerald-700"
             >
-              Hakkimizda
+              Hakkımızda
             </Link>
           </nav>
         </div>
