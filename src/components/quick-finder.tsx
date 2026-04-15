@@ -63,7 +63,16 @@ function getGeoErrorMessage(error: unknown): string {
       ? (error as { code: number }).code
       : null;
 
+  const isInsecureContext =
+    typeof window !== "undefined" &&
+    !window.isSecureContext &&
+    window.location.hostname !== "localhost" &&
+    window.location.hostname !== "127.0.0.1";
+
   if (code === 1) {
+    if (isInsecureContext) {
+      return "Safari, HTTP baglantida konum izni vermez. Siteyi HTTPS ile acin veya localhost uzerinden deneyin.";
+    }
     return "Konum izni verilmedi. Sehir ve ilceyi elle secerek devam edebilirsiniz.";
   }
   if (code === 2) {
@@ -144,41 +153,95 @@ export function QuickFinder({ cities }: QuickFinderProps) {
   const topResult = useMemo(() => result?.pharmacies[0] ?? null, [result]);
   const effectiveUserLocation = userLocation ?? result?.context.origin ?? null;
 
+  useEffect(() => {
+    if (!error) {
+      return;
+    }
+
+    const timeoutId = window.setTimeout(() => {
+      setError("");
+    }, 6000);
+
+    return () => {
+      window.clearTimeout(timeoutId);
+    };
+  }, [error]);
+
   async function getCurrentLocation(): Promise<Coordinate> {
     if (!navigator.geolocation) {
       throw new Error("Cihaziniz konum ozelligini desteklemiyor");
     }
 
-    const coords = await new Promise<GeolocationCoordinates>((resolve, reject) => {
-      let isSettled = false;
+    const requestPosition = (
+      options: PositionOptions,
+      hardTimeoutMs: number,
+    ): Promise<GeolocationCoordinates> =>
+      new Promise<GeolocationCoordinates>((resolve, reject) => {
+        let isSettled = false;
 
-      const success = (position: GeolocationPosition) => {
-        if (isSettled) return;
-        isSettled = true;
-        resolve(position.coords);
-      };
+        const success = (position: GeolocationPosition) => {
+          if (isSettled) {
+            return;
+          }
+          isSettled = true;
+          resolve(position.coords);
+        };
 
-      const fallbackError = (geoError: GeolocationPositionError) => {
-        if (isSettled) return;
-        isSettled = true;
-        reject(geoError);
-      };
+        const fail = (geoError: GeolocationPositionError) => {
+          if (isSettled) {
+            return;
+          }
+          isSettled = true;
+          reject(geoError);
+        };
 
-      // iOS Safari'de prompt gelmeme sorununa karsi timeout ve fallback
-      navigator.geolocation.getCurrentPosition(success, fallbackError, {
-        enableHighAccuracy: false, // Ilk aramada hiz ve stabilite icin false (iOS'ta daha iyi calisir)
-        maximumAge: 30_000,
-        timeout: 15_000,
+        navigator.geolocation.getCurrentPosition(success, fail, options);
+
+        // Bazi Safari surumlerinde callback hic donmeyebiliyor.
+        setTimeout(() => {
+          if (!isSettled) {
+            isSettled = true;
+            reject(
+              new Error(
+                "Konum alma istegi zaman asimina ugradi. Lutfen tarayici/cihaz konum izinlerini kontrol edin.",
+              ),
+            );
+          }
+        }, hardTimeoutMs);
       });
 
-      // Native API'nin hic yanit vermemesi durumu icin (orn. Safari bugi)
-      setTimeout(() => {
-        if (!isSettled) {
-          isSettled = true;
-          reject(new Error("Konum alma isteği zaman aşımına uğradı. Lütfen aygıt ayarlarından konum izni verdiğinizden emin olun."));
-        }
-      }, 16_000);
-    });
+    let coords: GeolocationCoordinates;
+    try {
+      coords = await requestPosition(
+        {
+          enableHighAccuracy: false,
+          maximumAge: 30_000,
+          timeout: 15_000,
+        },
+        16_000,
+      );
+    } catch (firstAttemptError: unknown) {
+      const code =
+        typeof firstAttemptError === "object" &&
+        firstAttemptError !== null &&
+        "code" in firstAttemptError &&
+        typeof (firstAttemptError as { code?: unknown }).code === "number"
+          ? (firstAttemptError as { code: number }).code
+          : null;
+
+      if (code === 1) {
+        throw firstAttemptError;
+      }
+
+      coords = await requestPosition(
+        {
+          enableHighAccuracy: true,
+          maximumAge: 0,
+          timeout: 20_000,
+        },
+        21_000,
+      );
+    }
 
     const coordinate = {
       lat: coords.latitude,
@@ -216,12 +279,16 @@ export function QuickFinder({ cities }: QuickFinderProps) {
   }
 
   async function runGpsSearch(): Promise<void> {
-    setLoadingMode("gps");
-    setError("");
-    setResult(null);
-
     try {
-      const coordinates = await getCurrentLocation();
+      // Safari'de native konum prompt'unun daha tutarli acilmasi icin
+      // geolocation istegini state guncellemelerinden once baslat.
+      const locationRequest = getCurrentLocation();
+
+      setLoadingMode("gps");
+      setError("");
+      setResult(null);
+
+      const coordinates = await locationRequest;
       const payload = await readJson<FinderResponse>(
         `/api/pharmacies/nearby?lat=${coordinates.lat}&lng=${coordinates.lng}`,
       );
@@ -365,13 +432,25 @@ export function QuickFinder({ cities }: QuickFinderProps) {
         </button>
       </div>
 
-      {/* ── Error ── */}
+      {/* ── Error Toast ── */}
       {error ? (
-        <div className="flex items-start gap-2.5 rounded-xl border border-rose-200 bg-rose-50 px-3.5 py-2.5 text-sm text-rose-700">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mt-0.5 shrink-0">
-            <circle cx="12" cy="12" r="10" /><path d="m15 9-6 6M9 9l6 6" />
-          </svg>
-          {error}
+        <div className="pointer-events-none fixed inset-x-0 top-3 z-[1200] flex justify-center px-3 sm:top-4">
+          <div className="pointer-events-auto flex w-full max-w-xl items-start gap-2.5 rounded-2xl border border-rose-200 bg-white/95 px-3.5 py-3 text-sm text-rose-700 shadow-xl backdrop-blur">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mt-0.5 shrink-0">
+              <circle cx="12" cy="12" r="10" /><path d="m15 9-6 6M9 9l6 6" />
+            </svg>
+            <p className="flex-1 leading-5">{error}</p>
+            <button
+              aria-label="Hata mesajini kapat"
+              className="rounded-md p-1 text-rose-500 transition hover:bg-rose-50 hover:text-rose-700"
+              onClick={() => setError("")}
+              type="button"
+            >
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="m18 6-12 12M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
         </div>
       ) : null}
 
