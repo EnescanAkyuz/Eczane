@@ -62,6 +62,11 @@ function getGeoErrorMessage(error: unknown): string {
       typeof (error as { code?: unknown }).code === "number"
       ? (error as { code: number }).code
       : null;
+  const userAgent =
+    typeof navigator !== "undefined" ? navigator.userAgent : "";
+  const isSafari =
+    /Safari/i.test(userAgent) &&
+    !/Chrome|CriOS|EdgiOS|FxiOS/i.test(userAgent);
 
   const isInsecureContext =
     typeof window !== "undefined" &&
@@ -72,6 +77,9 @@ function getGeoErrorMessage(error: unknown): string {
   if (code === 1) {
     if (isInsecureContext) {
       return "Safari, HTTP baglantida konum izni vermez. Siteyi HTTPS ile acin veya localhost uzerinden deneyin.";
+    }
+    if (isSafari) {
+      return "Safari konum istegini engelledi. iPhone Ayarlar > Safari > Konum veya Safari icindeki aA > Web Sitesi Ayarlari > Konum menüsünden bu siteye izin verip tekrar deneyin.";
     }
     return "Konum izni verilmedi. Sehir ve ilceyi elle secerek devam edebilirsiniz.";
   }
@@ -324,7 +332,7 @@ export function QuickFinder({ cities }: QuickFinderProps) {
         <button
           className="btn-gps-pulse flex h-14 w-full items-center justify-center gap-2.5 rounded-2xl bg-emerald-600 px-6 text-base font-bold text-white shadow-lg shadow-emerald-200 transition hover:bg-emerald-500 active:scale-[0.97] disabled:cursor-not-allowed disabled:bg-emerald-300 disabled:shadow-none sm:h-12 sm:w-auto sm:text-sm"
           disabled={isBusy}
-          onClick={() => setShowLocationConsent(true)}
+          onClick={runGpsSearch}
           type="button"
         >
           {loadingMode === "gps" ? (
