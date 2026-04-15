@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 import { PharmacyCard } from "@/components/pharmacy-card";
 import { PharmacyMap } from "@/components/pharmacy-map";
@@ -39,6 +39,33 @@ type QuickFinderProps = {
   cities: CityOption[];
 };
 
+const LAST_KNOWN_LOCATION_KEY = "quick-finder:last-known-location";
+
+function getGeoClientEnvironment() {
+  const userAgent =
+    typeof navigator !== "undefined" ? navigator.userAgent : "";
+  const isSafari =
+    /Safari/i.test(userAgent) &&
+    !/Chrome|CriOS|EdgiOS|FxiOS/i.test(userAgent);
+  const isIos = /iPhone|iPad|iPod/i.test(userAgent);
+  const isStandalone =
+    typeof window !== "undefined" &&
+    (window.matchMedia?.("(display-mode: standalone)").matches === true ||
+      Boolean((navigator as Navigator & { standalone?: boolean }).standalone));
+  const isInsecureContext =
+    typeof window !== "undefined" &&
+    !window.isSecureContext &&
+    window.location.hostname !== "localhost" &&
+    window.location.hostname !== "127.0.0.1";
+
+  return {
+    isInsecureContext,
+    isIos,
+    isSafari,
+    isStandalone,
+  };
+}
+
 function formatFetchedAt(value: string): string {
   const parsed = new Date(value);
   if (Number.isNaN(parsed.getTime())) {
@@ -62,21 +89,17 @@ function getGeoErrorMessage(error: unknown): string {
       typeof (error as { code?: unknown }).code === "number"
       ? (error as { code: number }).code
       : null;
-  const userAgent =
-    typeof navigator !== "undefined" ? navigator.userAgent : "";
-  const isSafari =
-    /Safari/i.test(userAgent) &&
-    !/Chrome|CriOS|EdgiOS|FxiOS/i.test(userAgent);
-
-  const isInsecureContext =
-    typeof window !== "undefined" &&
-    !window.isSecureContext &&
-    window.location.hostname !== "localhost" &&
-    window.location.hostname !== "127.0.0.1";
+  const { isInsecureContext, isIos, isSafari, isStandalone } =
+    getGeoClientEnvironment();
 
   if (code === 1) {
     if (isInsecureContext) {
       return "Safari, HTTP baglantida konum izni vermez. Siteyi HTTPS ile acin veya localhost uzerinden deneyin.";
+    }
+    if (isIos && isSafari) {
+      return isStandalone
+        ? "iPhone Safari konumu engelledi. Site ana ekrandan acildiysa dogrudan Safari uygulamasinda acin. Ardindan Ayarlar > Gizlilik ve Guvenlik > Konum Servisleri > Safari Web Siteleri'ni acip, Safari icinde aA > Web Sitesi Ayarlari > Konum'u Izin Ver yapin ve sayfayi yenileyin."
+        : "iPhone Safari konumu engelledi. Ayarlar > Gizlilik ve Guvenlik > Konum Servisleri > Safari Web Siteleri'ni acin, sonra Safari icinde aA > Web Sitesi Ayarlari > Konum'u Izin Ver yapip sayfayi yenileyin.";
     }
     if (isSafari) {
       return "Safari konum istegini engelledi. iPhone Ayarlar > Safari > Konum veya Safari icindeki aA > Web Sitesi Ayarlari > Konum menüsünden bu siteye izin verip tekrar deneyin.";
@@ -115,7 +138,11 @@ export function QuickFinder({ cities }: QuickFinderProps) {
   const [error, setError] = useState("");
   const [result, setResult] = useState<FinderResult | null>(null);
   const [userLocation, setUserLocation] = useState<Coordinate | null>(null);
-  const [showLocationConsent, setShowLocationConsent] = useState(false);
+  const lastGpsTriggerAtRef = useRef(0);
+  const showLocationConsent = false;
+  const setShowLocationConsent = (_value: boolean): void => {
+    void _value;
+  };
 
   useEffect(() => {
     if (!selectedCity) {
@@ -180,18 +207,80 @@ export function QuickFinder({ cities }: QuickFinderProps) {
       throw new Error("Cihaziniz konum ozelligini desteklemiyor");
     }
 
+    const { isIos, isSafari } = getGeoClientEnvironment();
+
+    const finalizeCoordinate = (coords: GeolocationCoordinates): Coordinate => {
+      const coordinate = {
+        lat: coords.latitude,
+        lng: coords.longitude,
+      };
+
+      setUserLocation(coordinate);
+
+      try {
+        window.localStorage.setItem(
+          LAST_KNOWN_LOCATION_KEY,
+          JSON.stringify({
+            lat: coordinate.lat,
+            lng: coordinate.lng,
+            savedAt: Date.now(),
+          }),
+        );
+      } catch {
+        // localStorage bazi Safari modlarinda erisilemez olabilir.
+      }
+
+      return coordinate;
+    };
+
+    const readLastKnownLocation = (): Coordinate | null => {
+      try {
+        const rawValue = window.localStorage.getItem(LAST_KNOWN_LOCATION_KEY);
+        if (!rawValue) {
+          return null;
+        }
+
+        const parsed = JSON.parse(rawValue) as {
+          lat?: number;
+          lng?: number;
+          savedAt?: number;
+        };
+        if (
+          typeof parsed.lat !== "number" ||
+          typeof parsed.lng !== "number" ||
+          typeof parsed.savedAt !== "number"
+        ) {
+          return null;
+        }
+
+        const ageMs = Date.now() - parsed.savedAt;
+        if (ageMs > 30 * 60 * 1000) {
+          return null;
+        }
+
+        return {
+          lat: parsed.lat,
+          lng: parsed.lng,
+        };
+      } catch {
+        return null;
+      }
+    };
+
     const requestPosition = (
       options: PositionOptions,
       hardTimeoutMs: number,
     ): Promise<GeolocationCoordinates> =>
       new Promise<GeolocationCoordinates>((resolve, reject) => {
         let isSettled = false;
+        let hardTimeoutId = 0;
 
         const success = (position: GeolocationPosition) => {
           if (isSettled) {
             return;
           }
           isSettled = true;
+          window.clearTimeout(hardTimeoutId);
           resolve(position.coords);
         };
 
@@ -200,13 +289,14 @@ export function QuickFinder({ cities }: QuickFinderProps) {
             return;
           }
           isSettled = true;
+          window.clearTimeout(hardTimeoutId);
           reject(geoError);
         };
 
         navigator.geolocation.getCurrentPosition(success, fail, options);
 
         // Bazi Safari surumlerinde callback hic donmeyebiliyor.
-        setTimeout(() => {
+        hardTimeoutId = window.setTimeout(() => {
           if (!isSettled) {
             isSettled = true;
             reject(
@@ -218,15 +308,65 @@ export function QuickFinder({ cities }: QuickFinderProps) {
         }, hardTimeoutMs);
       });
 
-    let coords: GeolocationCoordinates;
+    const watchPositionOnce = (
+      options: PositionOptions,
+      hardTimeoutMs: number,
+    ): Promise<GeolocationCoordinates> =>
+      new Promise<GeolocationCoordinates>((resolve, reject) => {
+        let isSettled = false;
+        let watchId = 0;
+        let hardTimeoutId = 0;
+
+        const clearAll = () => {
+          if (watchId) {
+            navigator.geolocation.clearWatch(watchId);
+          }
+          window.clearTimeout(hardTimeoutId);
+        };
+
+        watchId = navigator.geolocation.watchPosition(
+          (position) => {
+            if (isSettled) {
+              return;
+            }
+            isSettled = true;
+            clearAll();
+            resolve(position.coords);
+          },
+          (geoError) => {
+            if (isSettled) {
+              return;
+            }
+            isSettled = true;
+            clearAll();
+            reject(geoError);
+          },
+          options,
+        );
+
+        hardTimeoutId = window.setTimeout(() => {
+          if (!isSettled) {
+            isSettled = true;
+            clearAll();
+            reject(
+              new Error(
+                "Konum alma istegi zaman asimina ugradi. Lutfen tarayici/cihaz konum izinlerini kontrol edin.",
+              ),
+            );
+          }
+        }, hardTimeoutMs);
+      });
+
+    let coords: GeolocationCoordinates | null = null;
+    let permissionDeniedError: unknown = null;
     try {
       coords = await requestPosition(
         {
           enableHighAccuracy: false,
-          maximumAge: 30_000,
-          timeout: 15_000,
+          maximumAge: 5 * 60 * 1000,
+          timeout: 8_000,
         },
-        16_000,
+        10_000,
       );
     } catch (firstAttemptError: unknown) {
       const code =
@@ -238,25 +378,52 @@ export function QuickFinder({ cities }: QuickFinderProps) {
           : null;
 
       if (code === 1) {
-        throw firstAttemptError;
+        permissionDeniedError = firstAttemptError;
       }
 
-      coords = await requestPosition(
-        {
-          enableHighAccuracy: true,
-          maximumAge: 0,
-          timeout: 20_000,
-        },
-        21_000,
-      );
+      try {
+        coords = await watchPositionOnce(
+          {
+            enableHighAccuracy: isIos && isSafari,
+            maximumAge: isIos && isSafari ? 0 : 60_000,
+            timeout: isIos && isSafari ? 16_000 : 12_000,
+          },
+          isIos && isSafari ? 18_000 : 14_000,
+        );
+      } catch (watchAttemptError: unknown) {
+        const watchCode =
+          typeof watchAttemptError === "object" &&
+          watchAttemptError !== null &&
+          "code" in watchAttemptError &&
+          typeof (watchAttemptError as { code?: unknown }).code === "number"
+            ? (watchAttemptError as { code: number }).code
+            : null;
+
+        if (watchCode === 1) {
+          permissionDeniedError ??= watchAttemptError;
+        }
+
+        try {
+          coords = await requestPosition(
+            {
+              enableHighAccuracy: true,
+              maximumAge: 0,
+              timeout: 20_000,
+            },
+            22_000,
+          );
+        } catch (finalAttemptError: unknown) {
+          const fallbackLocation = readLastKnownLocation();
+          if (fallbackLocation) {
+            setUserLocation(fallbackLocation);
+            return fallbackLocation;
+          }
+          throw permissionDeniedError ?? finalAttemptError;
+        }
+      }
     }
 
-    const coordinate = {
-      lat: coords.latitude,
-      lng: coords.longitude,
-    };
-    setUserLocation(coordinate);
-    return coordinate;
+    return finalizeCoordinate(coords);
   }
 
   async function runManualSearch(): Promise<void> {
@@ -317,6 +484,16 @@ export function QuickFinder({ cities }: QuickFinderProps) {
     }
   }
 
+  function handleGpsTrigger(): void {
+    const now = Date.now();
+    if (isBusy || now - lastGpsTriggerAtRef.current < 1000) {
+      return;
+    }
+
+    lastGpsTriggerAtRef.current = now;
+    void runGpsSearch();
+  }
+
   return (
     <section className="space-y-4">
       {/* ── GPS Button - prominent CTA ── */}
@@ -332,7 +509,8 @@ export function QuickFinder({ cities }: QuickFinderProps) {
         <button
           className="btn-gps-pulse flex h-14 w-full items-center justify-center gap-2.5 rounded-2xl bg-emerald-600 px-6 text-base font-bold text-white shadow-lg shadow-emerald-200 transition hover:bg-emerald-500 active:scale-[0.97] disabled:cursor-not-allowed disabled:bg-emerald-300 disabled:shadow-none sm:h-12 sm:w-auto sm:text-sm"
           disabled={isBusy}
-          onClick={runGpsSearch}
+          onClick={handleGpsTrigger}
+          onTouchEnd={handleGpsTrigger}
           type="button"
         >
           {loadingMode === "gps" ? (
