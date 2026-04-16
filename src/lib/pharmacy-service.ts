@@ -208,6 +208,71 @@ async function resolveCityFromName(cityName: string): Promise<CityOption | null>
   return bestScore > 0 ? bestCity : null;
 }
 
+function findCentralDistrict(districts: DistrictOption[]): DistrictOption | null {
+  return (
+    districts.find((district) => {
+      const normalizedName = normalizeForCompare(district.name);
+      return (
+        normalizedName === "merkez" ||
+        normalizedName === "merkez ilce" ||
+        district.slug === "merkez" ||
+        district.slug === "merkez-ilce"
+      );
+    }) ?? null
+  );
+}
+
+function expandDistrictCandidates(city: CityOption, candidates: string[]): string[] {
+  const normalizedCityName = normalizeForCompare(city.name);
+  const normalizedCitySlug = city.slug.replace(/-/g, " ");
+  const cityTokens = new Set([
+    ...normalizedCityName.split(" ").filter(Boolean),
+    ...normalizedCitySlug.split(" ").filter(Boolean),
+  ]);
+  const expanded = new Set<string>();
+
+  for (const candidate of candidates) {
+    const cleanedCandidate = removeDistrictSuffix(candidate);
+    if (!cleanedCandidate) {
+      continue;
+    }
+
+    expanded.add(cleanedCandidate);
+
+    const normalizedCandidate = normalizeForCompare(cleanedCandidate);
+    if (!normalizedCandidate) {
+      continue;
+    }
+
+    if (
+      normalizedCandidate === normalizedCityName ||
+      normalizedCandidate === normalizedCitySlug
+    ) {
+      expanded.add("Merkez");
+      continue;
+    }
+
+    if (normalizedCandidate.includes("merkez")) {
+      expanded.add("Merkez");
+    }
+
+    const withoutCityTokens = normalizedCandidate
+      .split(" ")
+      .filter((token) => !cityTokens.has(token))
+      .join(" ")
+      .trim();
+
+    if (withoutCityTokens) {
+      expanded.add(withoutCityTokens);
+      continue;
+    }
+
+    expanded.add("Merkez");
+  }
+
+  return Array.from(expanded);
+}
+
 async function resolveDistrictFromCandidates(
   city: CityOption,
   candidates: string[],
@@ -217,15 +282,18 @@ async function resolveDistrictFromCandidates(
     return null;
   }
 
-  if (!candidates.length) {
-    return districts[0];
+  const centralDistrict = findCentralDistrict(districts);
+  const expandedCandidates = expandDistrictCandidates(city, candidates);
+
+  if (!expandedCandidates.length) {
+    return centralDistrict ?? districts[0];
   }
 
   let bestDistrict: DistrictOption | null = null;
   let bestScore = 0;
 
   for (const district of districts) {
-    for (const candidate of candidates) {
+    for (const candidate of expandedCandidates) {
       const score =
         scoreBySimilarity(district.name, candidate) +
         scoreBySimilarity(district.slug, candidate);
@@ -236,7 +304,7 @@ async function resolveDistrictFromCandidates(
     }
   }
 
-  return bestScore > 0 ? bestDistrict : districts[0];
+  return bestScore > 0 ? bestDistrict : centralDistrict ?? districts[0];
 }
 
 async function resolveSelectionFromCoordinates(
